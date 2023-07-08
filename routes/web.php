@@ -3,6 +3,7 @@
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\OrdersController;
+use App\Http\Controllers\ProductimagesController;
 use App\Http\Controllers\ReviewsController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -52,6 +53,7 @@ Route::prefix('/admin')->name('admin.')->middleware('IsAdmin')->group(function()
     Route::resource('productcategories', ProductcategoriesController::class);
     Route::resource('products', ProductsController::class);
     Route::resource('orders', OrdersController::class);
+    Route::resource("productimages", ProductimagesController::class);
 });
 
 

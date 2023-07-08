@@ -6,7 +6,18 @@
                     text-decoration-none mt-5 col-12"><i class="fa-solid fa-chevron-left"></i> Back</a>
                 <div class="col-lg-5 mt-5">
                     <div class="card mb-3">
-                        <img class="card-img img-fluid" src="{{asset('img/product/' . $product->image)}}" style="height: 400px; object-fit: contain">
+                        <img class="card-img img-fluid" id="productImage"
+                             src="{{asset('img/product/' . $product->image)}}" style="height: 400px; object-fit: contain">
+                    </div>
+                    <div class="d-flex flex-wrap">
+                        <img src="{{asset("img/product/" . $product->image)}}" height="75" width="75"
+                             style="object-fit: contain" onclick="replaceImage(this)"
+                             id="{{$product->image}}">
+                        @foreach($product->productimages as $image)
+                            <img src="{{asset("img/product/" . $image->image)}}" height="75" width="75"
+                                 style="object-fit: contain" onclick="replaceImage(this)"
+                                 id="{{$image->image}}">
+                        @endforeach
                     </div>
                 </div>
                 <!-- col end -->
@@ -170,6 +181,12 @@
             amount.addEventListener('change', () => {
                 price.innerText = `€ ${(amount.value * amount.dataset.price).toFixed(2)}`;
             })
+
+            let image = document.querySelector("#productImage");
+
+            const replaceImage = (e) => {
+                image.src = `http://127.0.0.1:8000/img/product/${e.id}`;
+            }
         </script>
     @endsection
 </x-user.layout>

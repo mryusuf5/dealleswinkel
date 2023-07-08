@@ -75,6 +75,7 @@ class ProductcategoriesController extends Controller
         $category = Productcategories::where('id', $id)->first();
         $category->name = ucfirst($request->name);
         $category->description = ucfirst($request->description);
+        $this->checkImage($request, $category, true);
         $category->save();
 
         return redirect()->route('admin.productcategories.index')->with('success', 'Categorie aangepast');
@@ -123,17 +124,30 @@ class ProductcategoriesController extends Controller
         ));
     }
 
-    public function checkImage($request, $productCategory)
+    public function checkImage($request, $productCategory, $update = false)
     {
-        if($request->file('image'))
+        if(!$update)
         {
-            $imageName = 'category-' . time() . '.' . $request->file('image')->getClientOriginalExtension();
-            $request->file('image')->move('img/category/', $imageName);
-            $productCategory->image = $imageName;
+            if($request->file('image'))
+            {
+                $imageName = 'category-' . time() . '.' . $request->file('image')->getClientOriginalExtension();
+                $request->file('image')->move('img/category/', $imageName);
+                $productCategory->image = $imageName;
+            }
+            else
+            {
+                $productCategory->image = 'category-default.png';
+            }
         }
         else
         {
-            $productCategory->image = 'category-default.png';
+            if($request->file('image'))
+            {
+                $imageName = 'category-' . time() . '.' . $request->file('image')->getClientOriginalExtension();
+                $request->file('image')->move('img/category/', $imageName);
+                $productCategory->image = $imageName;
+            }
         }
+
     }
 }

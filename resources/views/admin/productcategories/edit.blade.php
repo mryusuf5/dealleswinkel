@@ -1,11 +1,16 @@
 <x-admin.layout>
     <x-slot name="title">{{$productcategory->name}}</x-slot>
     <x-slot name="backRoute">{{route('admin.productcategories.index')}}</x-slot>
-    <form action="{{route('admin.productcategories.update', $productcategory->id)}}" method="post">
+    <form action="{{route('admin.productcategories.update', $productcategory->id)}}" method="post"
+          enctype="multipart/form-data">
         @csrf
         @method('PUT')
         <div class="form-group">
             <input type="text" name="name" value="{{$productcategory->name}}" placeholder="Naam" class="form-control">
+        </div>
+        <div class="form-group">
+            <img src="{{asset("img/category/" . $productcategory->image)}}" height="150">
+            <input type="file" name="image" class="form-control">
         </div>
         <div class="form-group">
             <textarea name="description" cols="30" rows="10" dirname="description" placeholder="Beschrijving" class="form-control">{{$productcategory->description}}</textarea>
@@ -42,8 +47,8 @@
                                 {{$index + 1}}
                             </div>
                         </td>
-                        <td>{{$product->name}}</td>
-                        <td>{{$product->description}}</td>
+                        <td>{{Str::limit($product->name, 25)}}</td>
+                        <td>{{Str::limit($product->description, 25)}}</td>
                         <td>&euro; {{number_format($product->price, 2, ',', '.')}}</td>
                         <td>
                             <div class="d-flex justify-content-center dropdown">
