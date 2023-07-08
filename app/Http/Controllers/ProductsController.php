@@ -49,7 +49,11 @@ class ProductsController extends Controller
      */
     public function show($id)
     {
-        $product = Products::where('id', $id)->with('reviews')->first();
+        $product = Products::with("productimages")
+            ->where('id', $id)
+            ->with('reviews')
+            ->first();
+
         $productReviewsAverage = 0;
 
         if(count($product->reviews) > 0)
@@ -73,7 +77,10 @@ class ProductsController extends Controller
      */
     public function edit($id)
     {
-        $product = Products::where('id', $id)->with('productcategories')->first();
+        $product = Products::with("productimages")
+            ->where('id', $id)
+            ->with('productcategories')
+            ->first();
 
         return view('admin.products.edit', compact('product'));
     }
@@ -92,6 +99,7 @@ class ProductsController extends Controller
         $product->name = $request->name;
         $product->price = $request->price;
         $product->description = $request->description;
+        $this->checkImage($request, $product, true);
         $product->save();
 
         return redirect()->back()->with('success', 'Product aangepast');
@@ -107,17 +115,29 @@ class ProductsController extends Controller
         return redirect()->back()->with('success', 'Product verwijderd');
     }
 
-    public function checkImage($request, $product)
+    public function checkImage($request, $product, $update = false)
     {
-        if($request->file('image'))
+        if(!$update)
         {
-            $imageName = 'product-' . time() . '.' . $request->file('image')->getClientOriginalExtension();
-            $request->file('image')->move('img/product/', $imageName);
-            $product->image = $imageName;
+            if($request->file('image'))
+            {
+                $imageName = 'product-' . time() . '.' . $request->file('image')->getClientOriginalExtension();
+                $request->file('image')->move('img/product/', $imageName);
+                $product->image = $imageName;
+            }
+            else
+            {
+                $product->image = 'product-default.png';
+            }
         }
         else
         {
-            $product->image = 'product-default.png';
+            if($request->file('image'))
+            {
+                $imageName = 'product-' . time() . '.' . $request->file('image')->getClientOriginalExtension();
+                $request->file('image')->move('img/product/', $imageName);
+                $product->image = $imageName;
+            }
         }
     }
 }

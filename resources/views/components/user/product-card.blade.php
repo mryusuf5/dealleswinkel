@@ -7,7 +7,7 @@
         <div class="card-body">
             <a href="shop-single.html" class="h3 text-decoration-none d-flex justify-content-between">
                 <span>{{$name}}</span>
-                <span>&euro; {{$price}}</span>
+                <span>&euro;&nbsp;{{$price}}</span>
             </a>
             <hr>
             <p>{{Str::limit($description, 25)}}</p>

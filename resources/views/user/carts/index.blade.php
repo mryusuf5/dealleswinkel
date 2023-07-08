@@ -27,8 +27,8 @@
                                                      src="{{asset('img/product/' . $cart['product']->image)}}">
                                             </a>
                                             <div>
-                                                <h5>{{$cart['product']->name}}</h5>
-                                                <h6>{{$cart['product']->description}}</h6>
+                                                <h5>{{Str::limit($cart['product']->name, 25)}}</h5>
+                                                <h6>{{Str::limit($cart['product']->description, 25)}}</h6>
                                             </div>
                                         </div>
                                     </td>

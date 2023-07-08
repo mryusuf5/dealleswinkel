@@ -22,9 +22,9 @@
                 <div>
                     <i class="fa fa-envelope mx-2"></i>
                     <a class="navbar-sm-brand text-light text-decoration-none"
-                       href="mailto:info@company.com">info@primeshop.com</a>
+                       href="mailto:info@company.com">info@dealleswinkel.be</a>
                     <i class="fa fa-phone mx-2"></i>
-                    <a class="navbar-sm-brand text-light text-decoration-none" href="tel:010-020-0340">+32 412 345 678</a>
+                    <a class="navbar-sm-brand text-light text-decoration-none" href="tel:010-020-0340">+32 468 26 54 81</a>
                 </div>
                 <div>
                     <a class="text-light" href="https://fb.com/templatemo" target="_blank">
@@ -51,7 +51,7 @@
         <div class="container d-flex justify-content-between align-items-center">
 
             <a class="navbar-brand text-success logo h1 align-self-center" href="{{route('home')}}">
-                Prime
+                <img src="{{asset("img/logo_no_bg.png")}}" height="50">
             </a>
 
             <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse"
@@ -72,9 +72,9 @@
                                                 || Route::is('productcategories.show') ? 'text-success' : ''}}"
                                href="{{route('productcategories.index')}}">Shop</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="contact.html">Contact</a>
-                        </li>
+{{--                        <li class="nav-item">--}}
+{{--                            <a class="nav-link" href="contact.html">Contact</a>--}}
+{{--                        </li>--}}
                     </ul>
                 </div>
                 <div class="navbar align-self-center d-flex">
