@@ -5,6 +5,7 @@
             @method('POST')
             <div class="col-lg-10 col-12 alert alert-success">
                 <h4>Please check that you fill out all the fields</h4>
+                <h4 class="text-danger">After you have filled everything out, send your name and lastname on whatsapp</h4>
             </div>
 
             <div class="form-group col-lg-5 col-12">
@@ -63,7 +64,7 @@
             </div>
 
             <div class="form-group col-lg-5 col-12">
-                <input type="submit" class="btn btn-success w-100" value="Checkout">
+                <button class="btn btn-success w-100" type="submit">Ceckout with Whatsapp <i class="fa-brands fa-whatsapp"></i></button>
             </div>
         </form>
     </div>

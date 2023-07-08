@@ -14,7 +14,10 @@ class OrdersController extends Controller
      */
     public function index()
     {
-        $orders = orders::with("orderProducts", "orderProducts.products")->get();
+        $orders = orders::with("orderProducts", "orderProducts.products")
+            ->orderBy("id", "DESC")
+            ->where("is_paid", 0)
+            ->get();
 
         return view("admin.orders.index", compact(
             "orders"
@@ -71,7 +74,8 @@ class OrdersController extends Controller
 
         Session::pull("cart");
 
-        return redirect()->route("home")->with("success", "Order placed");
+//        return redirect()->route("home")->with("success", "Order placed");
+        return redirect("https://wa.me/32468265481?text=" . $request->firstname . "%20" . $request->lastname);
     }
 
     /**
@@ -85,17 +89,22 @@ class OrdersController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(orders $orders)
+    public function edit($id)
     {
-        //
+
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, orders $orders)
+    public function update(Request $request, $id)
     {
-        //
+        $order = orders::where("id", $id)->first();
+
+        $order->is_paid = 1;
+        $order->save();
+
+        return redirect()->route("admin.orders.index")->with("success", "bestelling opgeslagen");
     }
 
     /**
